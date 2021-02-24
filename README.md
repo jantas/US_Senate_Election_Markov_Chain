@@ -1,9 +1,10 @@
 # US_Senate_Election_Markov_Chain
 Modeling US Senate Election by Markov Chains
 
-# Data
+# Introduction
 The US Senate has 100 seats. Each seat belongs to Class I, Class II, or Class III. Every state is represented by two senators holding seats of different classes, who are elected for six-year terms. Regular senate elections are held every two yeas. The classes rotate every time so that each year one third of the seats is open. There can be special elections held in case a senator resign or cannot finish their term. 
 
+# Data
 I collected the data from Wikipedia, starting in 1966, when the first senate elections were held after passing the Civil Rights Act in 1964. Civil Rights Act was an important milestone in the U.S. politics because it established, among others, the right to vote for African-Americans. Therefore, not only the US electorate changed but also the two main political parties in the U.S. adpoted new ideas which led to evolve modern Democrats and Republicans. 
 https://en.wikipedia.org/wiki/List_of_United_States_senators_from_Minnesota
 
@@ -11,4 +12,4 @@ The data consists of a table in which rows corresponds to the US states and colu
 
 # Markov Chain Model
 
-# Predicion
+# Prediction

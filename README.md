@@ -16,4 +16,4 @@ The data were collected from lists of senators by states on the official website
 # Clustering the U.S. States
 We applied the Markov Chain mixture model described in \ref{ss:MCModel_for_senate} on the U.S. Senate election data set described in \ref{ss:data}. We tried different combinations of number of components $K$ of the mixture as well as different initial values for the EM algorithm. The initial values of parameters, i.e. the mixing proportion, transition matrices, and initial distribution, were randomized. We conducted 50 to 100 random initialization for each $K$ to ensure that our result is not only a local maximum.
 
-![fig 1](/images/States_cluster_ord_1_K3.png)
+![fig 1](/figures/States_cluster_ord_1_K3.png)

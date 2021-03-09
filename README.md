@@ -1,5 +1,5 @@
 # US_Senate_Election_Markov_Chain
-We use a mixture of Markov chains to to model the results of the U.S. Senate elections.
+We use a mixture of Markov chains to model the results of the U.S. Senate elections.
 
 # The U.S. Senate Elections
 The foundations of the U.S. Senate were laid by the the U.S. Constitution (Article I, Section 3). Originally, senators were chosen by state legislatures. However, in 1913, the 17th amendment provided that senators would be directly elected by the people. 

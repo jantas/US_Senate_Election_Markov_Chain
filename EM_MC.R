@@ -107,9 +107,9 @@ get_XX <- function(X,J) {
       # count the number of factors formed by taking the sequence and lagged sequence (sliding window of length two)
       y.factor <- factor(paste(c('0',as.character(y)),c(as.character(y),'0'), sep="")[2:y.T],levels=y.levels)
       y.freq <- table(y.factor)  # makes a table s.t. columns = levels, values = numbers of observation for each level
-      
+
       # factors y.freq$x are for example: 11,12,21,... and y.freq$freq are the numbers of observation
-      # we want to store the observations into a matrix into y.freq$x entries 
+      # we want to store the observations into a matrix into y.freq$x entries
       # i_index is then 1,1,2 and j_index 1,2,1
       i_index <- as.integer(floor(as.numeric(as.character(row.names(y.freq)))/10))
       j_index <- as.double(as.character(row.names(y.freq))) - 10*i_index
@@ -117,6 +117,15 @@ get_XX <- function(X,J) {
         XX_i[i_index[k],j_index[k]] <- y.freq[k]  # (i,j)-entry of XX_i is the corresponding nr of obs to factor ij
       }
       XX[[i]] <- XX_i  # put the XX_i matrix into a list of XX matrices
+
+      # y.weights <- exp(0.5*seq(-1,0,1/(y.T+1)))
+      # 
+      # i_index <- y[1:(y.T-1)]
+      # j_index <- y[2:y.T]
+      # for (j in 1:(y.T-1)) {
+      #   XX_i[i_index[j], j_index[j]] <- XX_i[i_index[j], j_index[j]] + y.weights[j]
+      # }
+      # XX[[i]] <- XX_i  # put the XX_i matrix into a list of XX matrices
     }
     
   } else {  # if X is a matrix (the idea is the same)

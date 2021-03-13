@@ -1,19 +1,12 @@
-# Process US_Senate_election_data.xlsx
-# Output: three .RData files consisting of 50 sequences of Markov Chain of 1st, 2nd and 3rd order
-
-rm(list=ls())
-
 library(readxl)
-
+rm(list=ls())
 data.raw <- read_excel("US_Senate_election_data.xlsx", sheet = "Final")
 
-rr <- dim(data.raw)[1]  # number of rows
-cc <- dim(data.raw)[2]  # number of columns
+rr <- dim(data.raw)[1]
+cc <- dim(data.raw)[2]-1  # the last column is ID
 
-stateID <- data.raw$ID  # US States
+stateID <- data.raw$ID
 
-# Raw data includes values D, R, D/D (when there were two democrats elected for one term, for more info check the .xlsx file), similarly R/R, D/R, R/D
-# This is how the chars will be convered to numeric values
 # D -> 1
 # R -> 2
 # D/D -> 1,1
@@ -21,11 +14,6 @@ stateID <- data.raw$ID  # US States
 # D/R -> 1,2
 # R/D -> 2,1
 
-# Ex: 1966: D, 1968: NA, 1970: D/R, 1972: R -> 1, 1, 2, 2 
-# each state has election twice evey 3 terms (6 years), in 1970 the dem senator left the office and a rep was elected to finish the term
-
-##############################################################################################
-# 1st-order Markov Chain Dataset
 data.list <- vector(mode = "list", length=rr)
 for(i in 1:rr){
   data.row <- data.raw[i,]
@@ -38,7 +26,8 @@ for(i in 1:rr){
            "D/D" = c(1,1),
            "R/R" = c(2,2),
            "D/R" = c(1,2),
-           "R/D" = c(2,1)
+           "R/D" = c(2,1),
+           "I (D)" = 1
            )
     tmp <- append(tmp,elem.proc)
   }
@@ -49,12 +38,8 @@ data_proc.ord_1 <- list(data.list,stateID)
 save(data_proc.ord_1, file="senate_data_processed_1st_order.RData")
 
 
-##############################################################################################
-# 2nd-order MC dataset
-# input is the 1st-order MC dataset
-# the state one step ahead does not depend only on the current state but also on a previous state
-# (one step back memory)
-# 4 states instead of 2 states: DD, DR, RD, RR represented by 1, 2, 3, 4
+
+# second order MC dataset
 data.list2 <- vector(mode = "list", length=rr)
 for(i in 1:rr){
   
@@ -77,8 +62,9 @@ for(i in 1:rr){
 data_proc.ord_2 <- list(data.list2,stateID)
 save(data_proc.ord_2, file="senate_data_processed_2nd_order.RData")
 
-##############################################################################################
-# 3rd order MC dataset
+
+# third order MC dataset
+# second order MC dataset
 data.list3 <- vector(mode = "list", length=rr)
 for(i in 1:rr){
   

@@ -1,9 +1,12 @@
-# Fits a mixture model of K Markov chains using EM algorithm
+# Fits a mixture model of K Markov chains using the EM algorithm
 # The formulas for the maximization step were derived 
 # analytically in "Model-based biclustering of clickstream data" by Volodymyr Melnykov
 # Application on the U.S. Senate Data set
 # Clusters the U.S. States based on a fitted mixture model
 # The best mixture model is chosen based on BIC (min)
+
+# Author: Jan Matas
+# year: 2021
 
 rm(list=ls())
 
@@ -13,8 +16,8 @@ source("EM_MC.R")
 ########################  SENATE DATA  #################################################
 ########################################################################################
 # choose the order of MC chains in the mixed model and their number
-ord <- 3
-K <- 2
+ord <- 1
+K <- 4
 S <- 100  # the number of random initializations 
 tol=1e-8  # tol for the EM procedure
 ########################################################################################
@@ -90,15 +93,15 @@ data.clust.reodr <- data.clustered
 # data.clust.reodr[data.clustered==2] <- 3
 # data.clust.reodr[data.clustered==3] <- 2
 
-## auto map
-plot_usmap(data = data.clust.reodr, values = "modelID", color = "black", labels=T) +
-  scale_fill_continuous(
-    low = "blue", high = "red", name = "Senate Election Clusters", label = scales::comma
-  ) + theme(legend.position = "off")
+# auto map
+# plot_usmap(data = data.clust.reodr, values = "modelID", color = "black", labels=T) +
+#   scale_fill_continuous(
+#     low = "blue", high = "red", name = "Senate Election Clusters", label = scales::comma
+#   ) + theme(legend.position = "off")
 
-## manual US map, change: scale_fill_manual(values = c(`1` = "blue", `2` = "red")
-# data.clustered <- mutate(data.clustered, modelID = factor(modelID))
-# plot_usmap(data = data.clustered, values = "modelID", color = "black", labels=T) +
-#   theme(panel.background = element_rect(colour = "white")) +
-#   scale_fill_manual(values = c(`2` = "blue", `3` = "grey", `1` = "violet", '4' = 'purple', '5'='red'), name = "modelID") +
-#   theme(legend.position = "off")
+# manual US map, change: scale_fill_manual(values = c(`1` = "blue", `2` = "red")
+data.clustered <- mutate(data.clustered, modelID = factor(modelID))
+plot_usmap(data = data.clustered, values = "modelID", color = "black", labels=T) +
+  theme(panel.background = element_rect(colour = "white")) +
+  scale_fill_manual(values = c(`1` = "red", `3` = "blue", `2` = "grey", '4' = 'violet'), name = "modelID") +
+  theme(legend.position = "off")
